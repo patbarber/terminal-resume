@@ -1,8 +1,8 @@
 import { useState } from "react";
-
+import AsciTitle from "./AsciTitle";
 export default function Container() {
   const [text, setText] = useState("");
-  const [darkToggle, setDarkToggle] = useState(false);
+  const [darkToggle, setDarkToggle] = useState(true);
   const [history, setHistory] = useState<string[]>([]);
 
   const addHistory = (input: string) => {
@@ -39,6 +39,7 @@ export default function Container() {
       <div
         className={`h-screen bg-orange-300 dark:bg-slate-800 text-white text-xl `}
       >
+        <AsciTitle />
         <div className="border-b-2 border-red-600 dark:border-white">
           {printHistory}
         </div>
