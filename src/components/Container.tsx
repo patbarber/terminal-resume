@@ -23,15 +23,30 @@ export default function Container() {
         console.log("about");
         break;
       case "contact":
+        //print contact
         console.log("contact");
         break;
       default:
+        //command not found
         return console.log("switch statement");
     }
   };
 
+  const linePreFix = (
+    <p className="mr-2">guest@{window.location.hostname} ~ </p>
+  );
+
+  const onSubmit = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === "Enter") {
+      console.log("enter hit");
+      addHistory(text);
+    }
+  };
   const printHistory = history.map((value: string, index: number) => (
-    <p key={index}>{value}</p>
+    <p key={index} className="flex">
+      {linePreFix}
+      {value}
+    </p>
   ));
 
   return (
@@ -40,24 +55,17 @@ export default function Container() {
         className={`h-screen bg-orange-300 dark:bg-slate-800 text-white text-xl `}
       >
         <AsciTitle />
-        <div className="border-b-2 border-red-600 dark:border-white">
-          {printHistory}
+        <div>{printHistory}</div>
+        <div className="flex">
+          {linePreFix}
+          <input
+            type="text"
+            className="bg-transparent caret-slate-500"
+            value={text}
+            onChange={(e) => setText(e.target.value)}
+            onKeyDown={onSubmit}
+          />
         </div>
-
-        <input
-          type="text"
-          className="bg-black border-2 border-white"
-          onChange={(e) => setText(e.target.value)}
-        />
-        <button
-          className="bg-black text-white"
-          type="submit"
-          value="added value"
-          onClick={() => addHistory(text)}
-        >
-          submit
-        </button>
-        <button onClick={(e) => setDarkToggle(!darkToggle)}>ToggleDark</button>
       </div>
     </span>
   );
